@@ -9,36 +9,36 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.RequiredArgsConstructor;
-import se331.lab.rest.entity.Event;
-import se331.lab.rest.service.EventService;
+import se331.lab.rest.entity.Organizer;
+import se331.lab.rest.service.OrganizerService;
 
 @Controller
 @RequiredArgsConstructor
-public class EventController {
-    final EventService eventService;
+public class OrganizerController {
+    final OrganizerService organizerService;
 
-    @GetMapping("events")
-    public ResponseEntity<?> getEventLists(
+    @GetMapping("organizers")
+    public ResponseEntity<?> getOrganizerLists(
             @RequestParam(value = "_limit", required = false) Integer pageSize,
             @RequestParam(value = "_page", required = false) Integer page) {
-        Integer eventSize = eventService.getEventSize();
+        Integer organizerSize = organizerService.getOrganizerSize();
         HttpHeaders responseHeader = new HttpHeaders();
-        responseHeader.set("x-total-count", String.valueOf(eventSize));
+        responseHeader.set("x-total-count", String.valueOf(organizerSize));
         try {
             return ResponseEntity.status(HttpStatus.OK).headers(responseHeader)
-                    .body(eventService.getEvents(pageSize, page));
+                    .body(organizerService.getOrganizers(pageSize, page));
         } catch (IndexOutOfBoundsException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
-    @GetMapping("events/{id}")
-    public ResponseEntity<?> getEvent(@PathVariable("id") Long id) {
-        Event output = eventService.getEvent(id);
+    @GetMapping("organizers/{id}")
+    public ResponseEntity<?> getOrganizer(@PathVariable("id") Long id) {
+        Organizer output = organizerService.getOrganizer(id);
         if (output != null) {
             return ResponseEntity.ok(output);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Event not found.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Organizer not found.");
         }
     }
 }

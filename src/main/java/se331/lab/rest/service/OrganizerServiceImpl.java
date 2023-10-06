@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import se331.lab.rest.dao.OrganizerDao;
-import se331.lab.rest.entity.Event;
 import se331.lab.rest.entity.Organizer;
 
 @Service

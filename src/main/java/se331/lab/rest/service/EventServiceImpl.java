@@ -2,15 +2,20 @@ package se331.lab.rest.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import lombok.RequiredArgsConstructor;
 import se331.lab.rest.dao.EventDao;
+import se331.lab.rest.dao.OrganizerDao;
 import se331.lab.rest.entity.Event;
 
 @Service
 @RequiredArgsConstructor
 public class EventServiceImpl implements EventService {
     final EventDao eventDao;
+    final OrganizerDao organizerDao;
 
     @Override
     public Integer getEventSize() {

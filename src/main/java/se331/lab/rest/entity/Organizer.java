@@ -1,9 +1,14 @@
 package se331.lab.rest.entity;
 
+import java.util.List;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,5 +26,6 @@ public class Organizer {
     @EqualsAndHashCode.Exclude
     Long id;
     String name;
-    String address;
+    @OneToMany(mappedBy = "organizer")
+    List<Event> ownEvents;
 }

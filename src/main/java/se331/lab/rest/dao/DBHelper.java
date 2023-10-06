@@ -20,7 +20,7 @@ public class DBHelper {
         JsonParser jsonParser = new BasicJsonParser();
         File dbFile;
         try {
-            dbFile = ResourceUtils.getFile("classpath:db.min.json");
+            dbFile = ResourceUtils.getFile("classpath:db-min.json");
         } catch (FileNotFoundException e) {
             dbFile = null;
         }

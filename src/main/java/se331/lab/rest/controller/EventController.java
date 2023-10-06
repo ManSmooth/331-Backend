@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import se331.lab.rest.entity.Event;
 import se331.lab.rest.service.EventService;
+import se331.lab.rest.util.LabMapper;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,16 +29,18 @@ public class EventController {
         Page<Event> pageOut = eventService.getEvents(pageSize, page);
         responseHeader.set("x-total-count", String.valueOf(pageOut.getTotalElements()));
         if (pageOut.getContent().isEmpty()) {
-            return new ResponseEntity<>(pageOut.getContent(), responseHeader, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(LabMapper.INSTANCE.getEventDto(pageOut.getContent()), responseHeader,
+                    HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(pageOut.getContent(), responseHeader, HttpStatus.OK);
+        return new ResponseEntity<>(LabMapper.INSTANCE.getEventDto(pageOut.getContent()), responseHeader,
+                HttpStatus.OK);
     }
 
     @GetMapping("events/{id}")
     public ResponseEntity<?> getEvent(@PathVariable("id") Long id) {
         Event output = eventService.getEvent(id);
         if (output != null) {
-            return ResponseEntity.ok(output);
+            return ResponseEntity.ok(LabMapper.INSTANCE.getEventDto(output));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Event not found.");
         }
@@ -46,7 +49,6 @@ public class EventController {
     @PostMapping("/events")
     public ResponseEntity<?> addEvent(@RequestBody Event event) {
         Event output = eventService.save(event);
-        return ResponseEntity.ok(output);
+        return ResponseEntity.ok(LabMapper.INSTANCE.getEventDto(output));
     }
-
 }

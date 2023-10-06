@@ -1,10 +1,8 @@
 package se331.lab.rest.service;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import lombok.RequiredArgsConstructor;
 import se331.lab.rest.dao.EventDao;
@@ -35,5 +33,10 @@ public class EventServiceImpl implements EventService {
     @Override
     public Event save(Event event) {
         return eventDao.save(event);
+    }
+
+    @Override
+    public Page<Event> getEvents(Integer pageSize, Integer page, String keyword) {
+        return eventDao.getEvents(pageSize, page, keyword);
     }
 }

@@ -1,10 +1,9 @@
 package se331.lab.rest.dao;
 
-import java.util.List;
-
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
@@ -24,10 +23,16 @@ public class EventDaoDbImpl implements EventDao {
 
     @Override
     public Page<Event> getEvents(Integer pageSize, Integer page) {
-        if (pageSize != null && page != null) {
-            return eventRepository.findAll(PageRequest.of(page - 1, pageSize));
-        }
-        return eventRepository.findAll(PageRequest.of(0, getEventSize()));
+        return eventRepository.findAll(pageSize != null && page != null ? PageRequest.of(page - 1, pageSize)
+                : PageRequest.of(0, getEventSize()));
+    }
+
+    @Override
+    public Page<Event> getEvents(Integer pageSize, Integer page, String keyword) {
+        return eventRepository
+                .findByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContainingOrOrganizer_NameIgnoreCaseContaining(
+                        keyword, keyword, keyword, pageSize != null && page != null ? PageRequest.of(page - 1, pageSize)
+                                : PageRequest.of(0, getEventSize()));
     }
 
     @Override
@@ -39,5 +44,4 @@ public class EventDaoDbImpl implements EventDao {
     public Event save(Event event) {
         return eventRepository.save(event);
     }
-
 }

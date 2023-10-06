@@ -24,9 +24,15 @@ public class EventController {
     @GetMapping("events")
     public ResponseEntity<?> getEventLists(
             @RequestParam(value = "_limit", required = false) Integer pageSize,
-            @RequestParam(value = "_page", required = false) Integer page) {
+            @RequestParam(value = "_page", required = false) Integer page,
+            @RequestParam(value = "keyword", required = false) String keyword) {
         HttpHeaders responseHeader = new HttpHeaders();
-        Page<Event> pageOut = eventService.getEvents(pageSize, page);
+        Page<Event> pageOut;
+        if (keyword != null) {
+            pageOut = eventService.getEvents(pageSize, page, keyword);
+        } else {
+            pageOut = eventService.getEvents(pageSize, page);
+        }
         responseHeader.set("x-total-count", String.valueOf(pageOut.getTotalElements()));
         if (pageOut.getContent().isEmpty()) {
             return new ResponseEntity<>(LabMapper.INSTANCE.getEventDto(pageOut.getContent()), responseHeader,

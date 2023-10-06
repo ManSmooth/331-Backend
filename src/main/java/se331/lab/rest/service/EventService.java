@@ -9,6 +9,8 @@ public interface EventService {
 
     Page<Event> getEvents(Integer pageSize, Integer page);
 
+    Page<Event> getEvents(Integer pageSize, Integer page, String keyword);
+
     Event getEvent(Long id);
 
     Event save(Event event);

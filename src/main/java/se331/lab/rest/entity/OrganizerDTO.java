@@ -14,5 +14,5 @@ import lombok.NoArgsConstructor;
 public class OrganizerDTO {
     Long id;
     String name;
-    List<OrganizerOwnEventsDTO> ownEvents;
+    List<OrganizerEventDTO> ownEvents;
 }

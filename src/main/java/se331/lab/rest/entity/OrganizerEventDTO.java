@@ -1,5 +1,7 @@
 package se331.lab.rest.entity;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ParticipantEventHistoryDTO {
+public class OrganizerEventDTO {
     Long id;
     String category;
     String title;
@@ -18,5 +20,5 @@ public class ParticipantEventHistoryDTO {
     String date;
     String time;
     Boolean petAllowed;
-    ParticipantEventHistoryOrganizerDTO organizer;
+    List<EventParticipantDTO> participants;
 }

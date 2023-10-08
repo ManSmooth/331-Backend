@@ -11,13 +11,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import se331.lab.rest.dao.DBHelper;
 import se331.lab.rest.entity.Event;
 import se331.lab.rest.entity.Organizer;
 import se331.lab.rest.entity.Participant;
 import se331.lab.rest.repository.EventRepository;
 import se331.lab.rest.repository.OrganizerRepository;
 import se331.lab.rest.repository.ParticipantRepository;
+import se331.lab.rest.util.DBHelper;
 
 @Component
 @RequiredArgsConstructor
@@ -25,17 +25,20 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     final EventRepository eventRepository;
     final OrganizerRepository organizerRepository;
     final ParticipantRepository participantRepository;
+    final DBHelper dbHelper;
 
     @Override
     @Transactional
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-        List<Organizer> organizers = DBHelper.getTable("organizers").stream().map(organizer -> Organizer.builder()
-                .id((Long) organizer.get("id"))
-                .name((String) organizer.get("name"))
-                .build()).toList();
+        List<Organizer> organizers = dbHelper.getTable("organizers").stream()
+                .map(organizer -> Organizer.builder()
+                        .id((Long) organizer.get("id"))
+                        .name((String) organizer.get("name"))
+                        .build())
+                .toList();
         organizers.forEach(x -> organizerRepository.save(x));
         Random rand = new Random();
-        List<Event> events = DBHelper.getTable("events").stream().map(event -> Event.builder()
+        List<Event> events = dbHelper.getTable("events").stream().map(event -> Event.builder()
                 .id((Long) event.get("id"))
                 .category((String) event.get("category"))
                 .title((String) event.get("title"))
@@ -47,7 +50,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .organizer(organizers.get(rand.nextInt(organizers.size())))
                 .build()).toList();
         events.forEach(x -> eventRepository.save(x));
-        DBHelper.getTable("participants").stream()
+        dbHelper.getTable("participants").stream()
                 .map(participant -> Participant.builder()
                         .id((Long) participant.get("id"))
                         .name((String) participant.get("name"))

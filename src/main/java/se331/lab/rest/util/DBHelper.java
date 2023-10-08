@@ -1,4 +1,4 @@
-package se331.lab.rest.dao;
+package se331.lab.rest.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,8 +12,10 @@ import java.util.Map;
 
 import org.springframework.boot.json.BasicJsonParser;
 import org.springframework.boot.json.JsonParser;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
+@Component
 public class DBHelper {
     static Map<String, Object> db;
     static {
@@ -37,7 +39,7 @@ public class DBHelper {
 
     }
 
-    public static List<LinkedHashMap<String, Object>> getTable(String name) {
+    public List<LinkedHashMap<String, Object>> getTable(String name) {
         if (db.containsKey(name)) {
             @SuppressWarnings("unchecked")
             ArrayList<LinkedHashMap<String, Object>> out = (ArrayList<LinkedHashMap<String, Object>>) db.get(name);

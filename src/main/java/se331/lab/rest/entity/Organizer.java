@@ -2,8 +2,6 @@ package se331.lab.rest.entity;
 
 import java.util.List;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,4 +26,5 @@ public class Organizer {
     String name;
     @OneToMany(mappedBy = "organizer")
     List<Event> ownEvents;
+    String image;
 }

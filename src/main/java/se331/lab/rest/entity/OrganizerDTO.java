@@ -15,4 +15,5 @@ public class OrganizerDTO {
     Long id;
     String name;
     List<OrganizerEventDTO> ownEvents;
+    String image;
 }

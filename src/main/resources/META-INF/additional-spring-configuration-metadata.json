@@ -1,0 +1,7 @@
+{"properties": [
+  {
+    "name": "firebase.bucket",
+    "type": "java.lang.String",
+    "description": "Firebase bucket name"
+  }
+]}

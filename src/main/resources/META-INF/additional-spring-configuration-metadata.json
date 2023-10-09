@@ -1,7 +1,19 @@
-{"properties": [
-  {
-    "name": "firebase.bucket",
-    "type": "java.lang.String",
-    "description": "Firebase bucket name"
-  }
-]}
+{
+    "properties": [
+        {
+            "name": "firebase.bucket",
+            "type": "java.lang.String",
+            "description": "Firebase bucket name"
+        },
+        {
+            "name": "application.security.jwt.expiration",
+            "type": "java.lang.Long",
+            "description": "JWT Expiration"
+        },
+        {
+            "name": "application.security.jwt.refresh-token.expiration",
+            "type": "java.lang.Long",
+            "description": "JWT Refreshed Expiration'"
+        }
+    ]
+}

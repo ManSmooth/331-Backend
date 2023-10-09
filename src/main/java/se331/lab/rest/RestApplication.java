@@ -13,8 +13,8 @@ public class RestApplication {
 		SpringApplication.run(RestApplication.class, args);
 	}
 
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
+    @Bean
+    WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {

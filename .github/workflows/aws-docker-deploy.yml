@@ -33,12 +33,16 @@ jobs:
                   context: .
                   push: true
                   tags: ${{ secrets.DOCKER_HUB_USERNAME }}/se331-backend:latest
+    deploy:
+        runs-on: ubuntu-latest
+        needs: docker
+        steps:
             - name: copy file via ssh password
               uses: appleboy/scp-action@v0.1.4
               with:
                   host: ${{ secrets.HOST_SERVER }}
                   username: ${{ secrets.HOST_USERNAME }}
-                  key: ${{secrets.HOST_SSH_PK }}
+                  key: ${{ secrets.HOST_SSH_PK }}
                   port: 22
                   source: "docker-compose-prod.yml"
                   target: "~/ubuntu/backend"
@@ -47,7 +51,7 @@ jobs:
               with:
                   host: ${{ secrets.HOST_SERVER }}
                   username: ${{ secrets.HOST_USERNAME }}
-                  key: ${{secrets.HOST_SSH_PK }}
+                  key: ${{ secrets.HOST_SSH_PK }}
                   port: 22
                   script: |
                       cd ~/ubuntu/backend

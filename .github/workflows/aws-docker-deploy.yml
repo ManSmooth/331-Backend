@@ -16,8 +16,9 @@ jobs:
                   distribution: "adopt"
             - name: run MVN
               run: |
-                  echo ${{ secrets.JWT_PRIVATE_KEY }} > src/main/resources/jwt.pem
-                  echo ${{ secrets.JWT_PUBLIC_KEY }} > src/main/resources/jwt.pub.pem
+                  echo "${{ secrets.FIREBASE_JSON_AUTH }}" | tr -d '\r' > src/main/resources/am-l-4b665-004def44257e.json
+                  echo "${{ secrets.JWT_PRIVATE_KEY }}" | tr -d '\r' > src/main/resources/jwt.pem
+                  echo "${{ secrets.JWT_PUBLIC_KEY }}" | tr -d '\r' > src/main/resources/jwt.pub.pem
                   mvn clean install -DskipTests -B
                   mkdir -p target/dependency && (cd target/dependency; unzip ../*.jar)
             - name: setup QEMU

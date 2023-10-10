@@ -14,9 +14,15 @@ jobs:
               with:
                   java-version: "17"
                   distribution: "adopt"
+            - name: create-json
+              id: create-json
+              uses: jsdaniell/create-json@v1.2.2
+              with:
+                  name: "am-l-4b665-004def44257e.json"
+                  json: ${{ secrets.FIREBASE_JSON_AUTH }}
+                  dir: "src/main/resources/"
             - name: run MVN
               run: |
-                  echo "${{ secrets.FIREBASE_JSON_AUTH }}" | tr -d '\r' > src/main/resources/am-l-4b665-004def44257e.json
                   echo "${{ secrets.JWT_PRIVATE_KEY }}" | tr -d '\r' > src/main/resources/jwt.pem
                   echo "${{ secrets.JWT_PUBLIC_KEY }}" | tr -d '\r' > src/main/resources/jwt.pub.pem
                   mvn clean install -DskipTests -B

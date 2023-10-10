@@ -1,6 +1,6 @@
 spring:
     datasource:
-        url: jdbc:postgresql://db:5432/selabdb
+        url: jdbc:postgresql://localhost:5432/selabdb
         username: root
         password: password
     jpa:
